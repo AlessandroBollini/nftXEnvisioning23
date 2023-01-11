@@ -8,7 +8,7 @@ const exec = require('await-exec');
 require("dotenv").config();
 const contract=process.env.CONTRACT;
 
-const port = 8080;
+const port = 8080 || process.env.PORT;
 app.set('view engine', 'ejs');
 const myCss = {
     style: fs.readFileSync('./views/style.css', 'utf-8')
