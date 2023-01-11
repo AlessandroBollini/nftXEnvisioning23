@@ -10,7 +10,7 @@ async function main() {
     const userEmail=process.env.EMAIL;
     await controller.addUser(userWallet,userEmail,level);
     const userInfo=await controller.findUser(userWallet);
-    const nft = await hre.ethers.getContractAt("Alfa2", contract);
+    const nft = await hre.ethers.getContractAt("Env23", contract);
     const signer0 = ethers.provider.getSigner(0);
     await signer0.getTransactionCount();
     await nft['safeTransferFrom(address,address,uint256)'](wallet, userWallet, userInfo.id);

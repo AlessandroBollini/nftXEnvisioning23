@@ -2,7 +2,7 @@ require("dotenv").config();
 const contract=process.env.CONTRACT;
 
 async function main(){
-    const nft = await hre.ethers.getContractAt("Alfa2", contract);
+    const nft = await hre.ethers.getContractAt("Env23", contract);
     const data=await nft.tokenURI(3);
     console.log(data);
 }

@@ -1,8 +1,8 @@
 async function main() {
-  const Alfa2 = await hre.ethers.getContractFactory("Alfa2");
-  const nft = await Alfa2.deploy();
+  const Env23 = await hre.ethers.getContractFactory("Env23");
+  const nft = await Env23.deploy();
   await nft.deployed();
-  console.log("Alfa2 deployed to:", nft.address);
+  console.log("Env23 deployed to:", nft.address);
 }
 
 main()

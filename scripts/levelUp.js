@@ -15,7 +15,7 @@ async function main(){
     console.log(level);
     const signer0 = ethers.provider.getSigner(0);
     await signer0.getTransactionCount();
-    const nft = await hre.ethers.getContractAt("Alfa2", contract);
+    const nft = await hre.ethers.getContractAt("Env23", contract);
     await nft.performUpkeep(tokenId,2);
     await alchemy.nft.refreshNftMetadata(userWallet,tokenId);
     await controller.updateUser(tokenId,newLevel);
