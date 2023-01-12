@@ -23,7 +23,7 @@ app.post('/', encodeUrl, async (req, res) => {
     const alreadyExist = await controller.checkUser(req.body.userAddress);
     try {
         if (alreadyExist == 0) {
-            await exec('node -v --network mumbai',{
+            await exec('node -v',{
             //await exec('npx hardhat run scripts/transfer.js --network mumbai',{
             //await exec('npx hardhat run scripts/transfer.js --network mumbai',{
                 env: { USERWALLET: req.body.userAddress, EMAIL: req.body.email }, function(error, stdout, stderr) {
