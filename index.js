@@ -6,7 +6,7 @@ const encodeUrl = parseUrl.urlencoded({ extended: true });
 const controller = require('./database/controller');
 const exec = require('await-exec');
 require("dotenv").config();
-const contract=process.env.CONTRACT;
+const contract = process.env.CONTRACT;
 
 const port = 8080 || process.env.PORT;
 app.set('view engine', 'ejs');
@@ -19,11 +19,11 @@ app.get('/', (_req, res) => {
 });
 
 app.post('/', encodeUrl, async (req, res) => {
-    const levelLenght=2;
+    const levelLenght = 2;
     const alreadyExist = await controller.checkUser(req.body.userAddress);
     try {
         if (alreadyExist == 0) {
-            await exec('npx hardhat run scripts/deploy.js --network mumbai', { 
+            await exec('npx hardhat run scripts/deploy.js --network mumbai', {
                 env: { USERWALLET: req.body.userAddress, EMAIL: req.body.email }, function(error, stdout, stderr) {
                     if (error !== null) {
                         console.log('exec error: ', error);
@@ -32,17 +32,24 @@ app.post('/', encodeUrl, async (req, res) => {
             });
             const id = await controller.findUser(req.body.userAddress);
             res.render("receipt", { myCss: myCss, contract: contract, id: id.id });
-        }else{
-            const checkLevel = await controller.hasUpgraded(req.body.userAddress,levelLenght);
+        } else {
+            const checkLevel = await controller.hasUpgraded(req.body.userAddress, levelLenght);
             const id = await controller.findUser(req.body.userAddress);
-            if(checkLevel==0){
-                await exec('npx hardhat run scripts/levelUp.js --network mumbai', {
+            if (checkLevel == 0) {
+                await exec('node -v', {
                     env: { TOKEN_ID: id.id, USERWALLET: id.wallet }, function(error, stdout, stderr) {
                         if (error !== null) {
                             console.log('exec error: ', error);
                         }
                     }
                 });
+                /**await exec('npx hardhat run scripts/levelUp.js --network mumbai', {
+                    env: { TOKEN_ID: id.id, USERWALLET: id.wallet }, function(error, stdout, stderr) {
+                        if (error !== null) {
+                            console.log('exec error: ', error);
+                        }
+                    }
+                });*/
                 res.render("update", { myCss: myCss });
             }
             res.render("receipt", { myCss: myCss, contract: contract, id: id.id });
