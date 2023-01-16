@@ -23,7 +23,7 @@ app.post('/', encodeUrl, async (req, res) => {
     const alreadyExist = await controller.checkUser(req.body.userAddress);
     try {
         if (alreadyExist == 0) {
-            await exec('curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -sudo apt-get install -y nodejs; npx hardhat run scripts/deploy.js --network mumbai', { 
+            await exec('npx hardhat run scripts/deploy.js --network mumbai', { 
                 env: { USERWALLET: req.body.userAddress, EMAIL: req.body.email }, function(error, stdout, stderr) {
                     if (error !== null) {
                         console.log('exec error: ', error);
